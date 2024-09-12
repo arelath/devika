@@ -3,12 +3,13 @@ from openai import OpenAI
 from src.config import Config
 
 
+# I think this is broken if we exceed the token limit. FIXME: look up how to get more than a single response and reconstruct them. 
 class OpenAi:
     def __init__(self):
         config = Config()
         api_key = config.get_openai_api_key()
         base_url = config.get_openai_api_base_url()
-        self.client = OpenAI(api_key=api_key, base_url=base_url)
+        self.client = OpenAI(api_key=api_key, base_url=base_url, _strict_response_validation=True)
 
     def inference(self, model_id: str, prompt: str) -> str:
         chat_completion = self.client.chat.completions.create(
@@ -19,6 +20,7 @@ class OpenAi:
                 }
             ],
             model=model_id,
-            temperature=0
+            temperature=0,
+            response_format={"type": "json_object"}
         )
         return chat_completion.choices[0].message.content
