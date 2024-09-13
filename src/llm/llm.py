@@ -122,7 +122,7 @@ class LLM:
                             raise concurrent.futures.TimeoutError
                         if future.done():
                             break
-                        time.sleep(0.5)
+                        time.sleep(3)
 
                     response = future.result(timeout=self.timeout_inference).strip()
 

@@ -1,8 +1,9 @@
 from jinja2 import Environment, BaseLoader
 
 from src.llm import LLM
+from src.services.utils import wstrip
 
-PROMPT = open("src/agents/planner/prompt.jinja2").read().strip()
+PROMPT = open("src/agents/planner/prompt.jinja2").read().wstrip()
 
 class Planner:
     def __init__(self, base_model: str):

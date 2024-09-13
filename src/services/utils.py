@@ -6,6 +6,12 @@ import json
 
 from src.socket_instance import emit_agent
 
+
+def wstrip(self):
+        return self.lstrip().rstrip() 
+
+str.wstrip = wstrip
+
 def retry_wrapper(func):
     def wrapper(*args, **kwargs):
         max_tries = 5
